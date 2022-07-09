@@ -1,3 +1,9 @@
+#PE5
+
+"""
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+"""
 def eratosthenes(primes, N):
     for i in range(2, N+1):
         primes[i] = True
@@ -20,16 +26,32 @@ def eratosthenes(primes, N):
             primes.pop(i)
     return list(primes.keys())
 
+def factorization(aP, N, f):
+    if N == 1:
+        return True
+    if N in aP:
+        f.append(N)
+        factorization(aP, 1, f)
+        return True
+    else:
+        q = N
+        for i in range(len(aP)):
+            if q%aP[i] == 0:
+                f.append(aP[i])
+                q = q//aP[i]
+                if q > 1:
+                    factorization(aP, q, f)
+                    return True
+                else:
+                    return True
+
+    return True
+    
+
 N = int(input())
-primes = {}
-aP = eratosthenes(primes, N)
 
-f = [] #array for factorization
-q = N
-for p in aP:
-  if q%p == 0:
-    f.append(p)
-    q = q//p
-
-for i in range(2, N+1):
-  
+a = {}
+f = []
+aP = eratosthenes (a, N)
+ret = factorization(aP, N, f)
+print(f)
